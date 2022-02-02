@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:homedesignapp/Config.dart';
 import 'package:homedesignapp/List/Square_Yard_List.dart';
 import 'package:homedesignapp/Screens/ResidentialInventory.dart';
@@ -14,12 +16,22 @@ class Home_Design extends StatefulWidget {
 
 class _Home_DesignState extends State<Home_Design> {
   @override
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _loading = true;
 
   String image;
   void initState() {
     super.initState();
 
-
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _loading = false;
+      });
+    });
+  }
+  Future<void> _signOut() async {
+    await _auth.signOut();
+    SystemNavigator.pop();
   }
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +45,10 @@ class _Home_DesignState extends State<Home_Design> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+              _signOut();
+            },
             icon: Icon(Icons.power_settings_new),
           ),
           IconButton(
@@ -44,106 +59,99 @@ class _Home_DesignState extends State<Home_Design> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 130,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(50),
-                  ),
-                  color: mainColor,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            Container(
+              height: 130,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(50),
                 ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 40,
-                      left: 0,
-                      child: Container(
-                        height: 60,
-                        width: 300,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(50),
-                              bottomRight: Radius.circular(50),
-                            )),
-                      ),
+                color: mainColor,
+              ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 40,
+                    left: 0,
+                    child: Container(
+                      height: 60,
+                      width: 300,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(50),
+                            bottomRight: Radius.circular(50),
+                          )),
                     ),
-                    Positioned(
-                        top: 60,
-                        left: 20,
-                        child: Text(
-                          "Select Design",
-                          style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                              color: mainColor),
-                        ))
-                  ],
-                ),
+                  ),
+                  Positioned(
+                      top: 60,
+                      left: 20,
+                      child: Text(
+                        "Select Design",
+                        style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: mainColor),
+                      ))
+                ],
               ),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                child: SY_Image(),
-              ),
-            ],
-          ),
+            ),
+            // Container(
+            //   height: MediaQuery.of(context).size.height,
+          SY_Image(),
+           // ),
+          ],
         ),
       ),
     );
   }
 
   Widget SY_Image() {
-    return ListView.builder(
-      // gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-      //     maxCrossAxisExtent: 650,
-      //     //childAspectRatio: (itemWidth / itemHeight),
-      //     crossAxisSpacing: 1,
-      //     mainAxisSpacing: 1),
-      itemCount: 1,
-      itemBuilder: (BuildContext ctx, index) {
-        return Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: InkWell(
-            child: Container(
-              height: 430,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      offset: Offset(-10.0, 10.0),
-                      blurRadius: 20.0,
-                      spreadRadius: 4.0),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(17.0),
+    return Expanded(
+      child: ListView.builder(
+        // gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        //     maxCrossAxisExtent: 650,
+        //     //childAspectRatio: (itemWidth / itemHeight),
+        //     crossAxisSpacing: 1,
+        //     mainAxisSpacing: 1),
+        itemCount: 1,
+        itemBuilder: (BuildContext ctx, index) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: InkWell(
+              child: Container(
+                height: 500,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        offset: Offset(-10.0, 10.0),
+                        blurRadius: 20.0,
+                        spreadRadius: 4.0),
+                  ],
+                ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(residentialmodellist[Data.idx].sqyard,
                         style: TextSize_SqYard),
-                    Row(
-                      children: [
-                        Container(
-                            height: 250,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blueAccent)),
-                            child: Image.network(residentialmodellist[Data.idx].image ,
-                            height: 100.0,
-                            width: 100.0,)
-                        ),
-                        SizedBox(
-                          width: 3,
-                        ),
-
-                      ],
+                    Expanded(
+                   //         height: 250,
+                   //         width: MediaQuery.of(context).size.width,
+                   //          decoration: BoxDecoration(
+                   //              border: Border.all(color: Colors.blueAccent)),
+                        child: Image.network(residentialmodellist[Data.idx].image ,
+                        // height: 100.0,
+                        // width: 100.0,
+                        )
                     ),
+                      SizedBox(height: 19,),
 
                     InkWell(
                       onTap: () {
@@ -183,9 +191,9 @@ class _Home_DesignState extends State<Home_Design> {
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

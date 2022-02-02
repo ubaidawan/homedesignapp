@@ -10,10 +10,13 @@ class Header extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(
+            height: 5,
+          ),
           Center(
             child: Text(
               text ,
-              style: TextStyle(color: Colors.black, fontSize: 40),
+              style: TextStyle(color: Colors.black, fontSize: 40,fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -22,7 +25,7 @@ class Header extends StatelessWidget {
           Center(
             child: Text(
               "Welcome To Home Design App",
-              style: TextStyle(color: Colors.black, fontSize: 18, fontStyle: FontStyle.italic),
+              style: TextStyle(color: Colors.black, fontSize: 18, fontStyle: FontStyle.normal),
             ),
           )
         ],

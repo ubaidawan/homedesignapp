@@ -29,6 +29,7 @@ class _MilestoneState extends State<Milestone> {
   }
 
   void initState() {
+
     super.initState();
     PercentageCalculator();
     Percentage;

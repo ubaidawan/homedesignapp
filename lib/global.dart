@@ -1,6 +1,8 @@
 import 'dart:core';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:homedesignapp/Model/CommercialDataModel.dart';
+import 'package:homedesignapp/Model/CommercialRequestModelData.dart';
+import 'package:homedesignapp/Model/ResidentRequestModelData.dart';
 import 'package:homedesignapp/Model/ResidentialDataModel.dart';
 
 class Selected_List {
@@ -28,8 +30,11 @@ class Selected_List {
 }
 
 List<String> uidlist = [];
+List<String> requestlist =[];
 List<ResidentialDataModel> residentialmodellist = [];
 List<CommercialDataModel> commercialmodellist = [];
+List<ResidentRequestDataModel> residentialrequestmodellist =[];
+List<CommercialRequestModelData> commercialrequestmodellist =[];
 
 Future<void> fetchResidentialUid() async {
   uidlist.clear();
@@ -74,9 +79,9 @@ fetchResidentialDetails() {
             value.snapshot.child("stone").value.toString(),
             value.snapshot.child("timber").value.toString(),
             value.snapshot.child("type").value.toString()));
+
       } else if (value.snapshot.child("type").value.toString() == "Commercial") {
-        commercialmodellist
-            .add(CommercialDataModel(value.snapshot.key,
+        commercialmodellist.add(CommercialDataModel(value.snapshot.key,
             value.snapshot.child("cost").value.toString(),
             value.snapshot.child("image").value.toString(),
             value.snapshot.child("sqfeet").value.toString(),
@@ -86,3 +91,116 @@ fetchResidentialDetails() {
     });
   }
 }
+
+
+Future<void> fetchRequestUid(String currentUserId) async {
+  requestlist.clear();
+  residentialrequestmodellist.clear();
+  commercialrequestmodellist .clear();
+  DatabaseReference DB_Refrance =
+  await FirebaseDatabase.instance.reference().child("Requests");
+  DB_Refrance.once().then((value) {
+    Map<dynamic, dynamic> values = value.snapshot.value;
+    Iterable childkey2 = values.keys;
+    childkey2.forEach((element) {
+      requestlist.add(element);
+    });
+  }).then((value) async {
+    await fetchRequestDetails(currentUserId);
+
+  });
+}
+
+fetchRequestDetails(String userId) async {
+  for (int i = 0; i < requestlist.length; i++) {
+    int len = requestlist.length;
+    DatabaseReference reference =  FirebaseDatabase.instance
+        .reference()
+        .child("Requests")
+        .child(requestlist.elementAt(i));
+    reference.once().then((value) {
+      if (value.snapshot.child("cid").value.toString() == userId &&
+          value.snapshot.child("status").value.toString() == "accept") {
+        String typee = value.snapshot.child("type").value.toString();
+        if (typee == "Residential") {
+          residentialrequestmodellist.add(ResidentRequestDataModel(
+              requestlist.elementAt(i),
+              value.snapshot.child("aluminium").value.toString(),
+              value.snapshot.child("bathroom").value.toString(),
+              value.snapshot.child("brick").value.toString(),
+              value.snapshot.child("cement").value.toString(),
+              value.snapshot.child("cid").value.toString(),
+              value.snapshot.child("cost").value.toString(),
+              value.snapshot.child("floor").value.toString(),
+              value.snapshot.child("hall").value.toString(),
+              value.snapshot.child("image").value.toString(),
+              value.snapshot.child("kitchen").value.toString(),
+              value.snapshot.child("room").value.toString(),
+              value.snapshot.child("sand").value.toString(),
+              value.snapshot.child("sqyard").value.toString(),
+              value.snapshot.child("status").value.toString(),
+              value.snapshot.child("steel").value.toString(),
+              value.snapshot.child("stone").value.toString(),
+              value.snapshot.child("timber").value.toString(),
+              value.snapshot.child("type").value.toString(),
+          ));
+        } else  {
+          commercialrequestmodellist.add(CommercialRequestModelData
+            ( requestlist.elementAt(i),
+              value.snapshot.child("cid").value.toString(),
+              value.snapshot.child("cost").value.toString(),
+              value.snapshot.child("image").value.toString(),
+              value.snapshot.child("sqfeet").value.toString(),
+              value.snapshot.child("status").value.toString(),
+            value.snapshot.child("type").value.toString()
+          ));
+        }
+      }
+
+    });
+  }}
+  fetchCommercial(String userId) async {
+  commercialrequestmodellist.clear();
+    for (int i = 0; i < requestlist.length; i++) {
+      DatabaseReference reference = await FirebaseDatabase.instance
+          .reference()
+          .child("Requests")
+          .child(requestlist.elementAt(i));
+      reference.once().then((value) {
+        if(value.snapshot.child('sqfeet').exists){
+          if (value.snapshot.child("cid").value.toString() == userId &&
+              value.snapshot.child("status").value.toString() == "accept") {
+            commercialrequestmodellist.add(CommercialRequestModelData
+              (
+                requestlist.elementAt(i),
+                value.snapshot
+                    .child("cid")
+                    .value
+                    .toString(),
+                value.snapshot
+                    .child("cost")
+                    .value
+                    .toString(),
+                value.snapshot
+                    .child("image")
+                    .value
+                    .toString(),
+                value.snapshot
+                    .child("sqfeet")
+                    .value
+                    .toString(),
+                value.snapshot
+                    .child("status")
+                    .value
+                    .toString(),
+                value.snapshot
+                    .child("type")
+                    .value
+                    .toString()
+            ));
+          }
+        }
+      });
+    }
+  }
+

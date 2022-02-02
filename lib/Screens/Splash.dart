@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homedesignapp/Screens/LoginPage.dart';
 
@@ -38,6 +39,12 @@ class _SplashscreenState extends State<Splashscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/wall.png"),
+              fit: BoxFit.fill,
+            )
+          ),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Padding(
@@ -46,7 +53,11 @@ class _SplashscreenState extends State<Splashscreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/home.jpg'),
+              Image.asset('assets/logos.png',color: Colors.white.withOpacity(0.3), colorBlendMode: BlendMode.modulate,),
+              SizedBox(height: 80,),
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              )
             ],
           ),
         ),
@@ -54,3 +65,6 @@ class _SplashscreenState extends State<Splashscreen> {
     ));
   }
 }
+
+
+

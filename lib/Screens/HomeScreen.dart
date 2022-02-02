@@ -17,7 +17,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _loading = true;
+  void initState() {
 
+
+    super.initState();
+
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _loading = false;
+      });
+    });
+  }
   Future<void> _signOut() async {
     await _auth.signOut();
     SystemNavigator.pop();
@@ -49,7 +60,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: _loading ? Center(child: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            //   color: Colors.red,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                    color: Color.fromRGBO(143, 148, 251, .2),
+                    blurRadius: 20.0,
+                    offset: Offset(0, 10))
+              ]),
+          child: CircularProgressIndicator())) :
+      SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -264,18 +288,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            // Divider(color: Colors.black,thickness: 0,height: 20,
-                            // ),
-                            // Text("Easy To Contact", style: TextStyle(
-                            //   fontSize: 16,
-                            //   color: Colors.grey,
-                            //   fontWeight: FontWeight.bold,
-                            // ),),
-                            // Text("Reliable Services", style: TextStyle(
-                            //   fontSize: 16,
-                            //   color: Colors.grey,
-                            //   fontWeight: FontWeight.bold,
-                            // ),),
                           ],
                         ),
                       ),

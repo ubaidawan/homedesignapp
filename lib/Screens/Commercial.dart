@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -189,6 +190,7 @@ class _CommercialPageState extends State<CommercialPage> {
   }
 
   SaveData() {
+    FirebaseAuth auth = FirebaseAuth.instance;
     Random random = new Random();
     int trackingnumber = random.nextInt(100000);
     DatabaseReference reference = FirebaseDatabase.instance.reference().child("Requests").child(trackingnumber.toString());
@@ -197,7 +199,8 @@ class _CommercialPageState extends State<CommercialPage> {
       "image" : commercialmodellist[Data.idx].image,
       "sqfeet": commercialmodellist[Data.idx].sqfeet,
       "type":commercialmodellist[Data.idx].type,
-      "cid" : commercialmodellist[Data.idx].uid
+      "cid" : auth.currentUser.uid,
+      "status": "pending"
     }).whenComplete(() {
       Navigator.pop(context);
       Fluttertoast.showToast(

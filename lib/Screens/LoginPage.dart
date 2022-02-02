@@ -37,8 +37,8 @@ class _LoginState extends State<Login> {
         } else {
           print('not showing anything');
           // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('Something went wrongs')));
-          //
+          //     .showSnackBar(SnackBar(content: Text('Processing')));
+
         }
       });
     } catch (e) {
@@ -67,7 +67,12 @@ class _LoginState extends State<Login> {
           body: SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                image:  DecorationImage(
+                  image: AssetImage("assets/hdhouse.png"),
+                  fit: BoxFit.cover,
+                  colorFilter: new ColorFilter.mode(Colors.black12.withOpacity(0.4), BlendMode.dstATop),
+                ),
+                // color: Colors.white,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -80,32 +85,48 @@ class _LoginState extends State<Login> {
                       children: [
                         Container(
                           padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1.5,
+                            ),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
                           child: TextFormField(
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                              color: Colors.black,
+                                fontSize: 20, fontWeight: FontWeight.bold),
                             controller: _email,
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2),
+                                borderSide: BorderSide(color: Colors.black, width: 2),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               hintText: "Email",
                               hintStyle: TextStyle(color: Colors.black),
-                              // border: InputBorder.none),
                             ),
-                          ),
+                           ),
                         ),
                         Padding(padding: const EdgeInsets.all(25.0)),
                         Container(
                           padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1.5,
+                            ),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
                           child: TextFormField(
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                              color: Colors.black,
+                                fontSize: 20, fontWeight: FontWeight.bold),
                             controller: _password,
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
+                                color: Colors.black,
                                   icon: Icon(
                                       _obscureText ? Icons.visibility : Icons.visibility_off),
                                   onPressed: () {
@@ -116,13 +137,14 @@ class _LoginState extends State<Login> {
                               focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.black, width: 2),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               hintText: "Password",
                               hintStyle: TextStyle(color: Colors.black),
 
                               // border: InputBorder.none),
                             ),
-                            obscureText: _obscureText,
+                            obscureText: !_obscureText,
                           ),
                         )
                       ],
@@ -136,14 +158,14 @@ class _LoginState extends State<Login> {
                         height: 50,
                         margin: EdgeInsets.symmetric(horizontal: 50),
                         decoration: BoxDecoration(
-                          color: Colors.cyan[500],
+                          color: Colors.cyan[400],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             "Login",
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -151,7 +173,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     SizedBox(
-                      height: 60,
+                      height: 40,
                     ),
                     InkWell(
                         onTap: () {
@@ -160,6 +182,14 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(builder: (context) => Signup()),
                           );
                         },
+                      child: Container(
+                          height: 50,
+                          margin: EdgeInsets.symmetric(horizontal: 50),
+                          decoration: BoxDecoration(
+                            color: Colors.cyan[400],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        child: Center(
                         child: Text(
                           'Create Account?',
                           style: TextStyle(
@@ -167,7 +197,7 @@ class _LoginState extends State<Login> {
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         )),
-                  ],
+                      ))],
                 ),
               ),
             ),
