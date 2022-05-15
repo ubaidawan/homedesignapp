@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:homedesignapp/Screens/Commercial.dart';
 import 'package:homedesignapp/Screens/Residential_Screen.dart';
 import 'package:homedesignapp/Screens/Splash.dart';
+import 'package:homedesignapp/Screens/SelectSqyard.dart';
 import 'package:homedesignapp/Services/Data.dart';
 import 'package:homedesignapp/global.dart';
 
@@ -19,8 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _loading = true;
   void initState() {
-
-
     super.initState();
 
     Future.delayed(Duration(seconds: 2), () {
@@ -29,10 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
   }
+
   Future<void> _signOut() async {
     await _auth.signOut();
     SystemNavigator.pop();
   }
+
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
@@ -48,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-
               _signOut();
             },
             icon: Icon(Icons.power_settings_new),
@@ -60,245 +60,251 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: _loading ? Center(child: Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            //   color: Colors.red,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                    color: Color.fromRGBO(143, 148, 251, .2),
-                    blurRadius: 20.0,
-                    offset: Offset(0, 10))
-              ]),
-          child: CircularProgressIndicator())) :
-      SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 130,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(50),
-                ),
-                color: mainColor,
-              ),
-              child: Stack(
+      body: _loading
+          ? Center(
+              child: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      //   color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromRGBO(143, 148, 251, .2),
+                            blurRadius: 20.0,
+                            offset: Offset(0, 10))
+                      ]),
+                  child: CircularProgressIndicator()))
+          : SingleChildScrollView(
+              child: Column(
                 children: [
-                  Positioned(
-                    top: 40,
-                    left: 0,
-                    child: Container(
-                      height: 60,
-                      width: 300,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
-                          )),
+                  Container(
+                    height: 130,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(50),
+                      ),
+                      color: mainColor,
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 40,
+                          left: 0,
+                          child: Container(
+                            height: 60,
+                            width: 300,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                )),
+                          ),
+                        ),
+                        Positioned(
+                            top: 60,
+                            left: 20,
+                            child: Text(
+                              "Select Type",
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                                color: mainColor,
+                              ),
+                            ))
+                      ],
                     ),
                   ),
-                  Positioned(
-                      top: 60,
-                      left: 20,
-                      child: Text(
-                        "Select Type",
-                        style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: mainColor,
-                        ),
-                      ))
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Data.type = "Residential";
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SelectSqyard()),
+                      );
+                    },
+                    child: Container(
+                      height: 230,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                              top: 35,
+                              left: 20,
+                              child: Material(
+                                child: Container(
+                                  height: 180.0,
+                                  width: width * 0.9,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          offset: Offset(-10.0, 10.0),
+                                          blurRadius: 20.0,
+                                          spreadRadius: 4.0),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                          Positioned(
+                              top: 0,
+                              left: 30,
+                              child: Card(
+                                  elevation: 10.0,
+                                  shadowColor: Colors.grey.withOpacity(0.5),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  child: Container(
+                                      height: 200,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: AssetImage("assets/img.jpg"),
+                                          ))))),
+                          Positioned(
+                            top: 60,
+                            left: 200,
+                            child: Container(
+                              color: Colors.white,
+                              height: 150,
+                              width: 140,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Residential",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: mainColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.black,
+                                    thickness: 0,
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    "Enjoy your own Personal Life and live your dreams",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 230,
+                    child: InkWell(
+                      onTap: () {
+                        Data.type = "Commercial";
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommercialPage()),
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          Positioned(
+                              top: 35,
+                              left: 20,
+                              child: Material(
+                                child: Container(
+                                  height: 180.0,
+                                  width: width * 0.9,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          offset: Offset(-10.0, 10.0),
+                                          blurRadius: 20.0,
+                                          spreadRadius: 4.0),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                          Positioned(
+                              top: 0,
+                              left: 30,
+                              child: Card(
+                                  elevation: 10.0,
+                                  shadowColor: Colors.grey.withOpacity(0.5),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  child: Container(
+                                      height: 200,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image:
+                                                AssetImage("assets/comm.jpg"),
+                                          ))))),
+                          Positioned(
+                            top: 60,
+                            left: 200,
+                            child: Container(
+                              color: Colors.white,
+                              height: 150,
+                              width: 140,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Commercial",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: mainColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.black,
+                                    thickness: 0,
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    "Call us for amazing commercial plots and buildings.",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: () {
-                Data.type = "Residential";
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Residential()),
-                );
-              },
-              child: Container(
-                height: 230,
-                child: Stack(
-                  children: [
-                    Positioned(
-                        top: 35,
-                        left: 20,
-                        child: Material(
-                          child: Container(
-                            height: 180.0,
-                            width: width * 0.9,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    offset: Offset(-10.0, 10.0),
-                                    blurRadius: 20.0,
-                                    spreadRadius: 4.0),
-                              ],
-                            ),
-                          ),
-                        )),
-                    Positioned(
-                        top: 0,
-                        left: 30,
-                        child: Card(
-                            elevation: 10.0,
-                            shadowColor: Colors.grey.withOpacity(0.5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Container(
-                                height: 200,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage("assets/img.jpg"),
-                                    ))))),
-                    Positioned(
-                      top: 60,
-                      left: 200,
-                      child: Container(
-                        color: Colors.white,
-                        height: 150,
-                        width: 140,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Residential",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: mainColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Divider(
-                              color: Colors.black,
-                              thickness: 0,
-                              height: 20,
-                            ),
-                            Text(
-                              "Enjoy your own Personal Life and live your dreams",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              height: 230,
-              child: InkWell(
-                onTap: () {
-                  Data.type = "Commercial";
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CommercialPage()),
-                  );
-                },
-                child: Stack(
-                  children: [
-                    Positioned(
-                        top: 35,
-                        left: 20,
-                        child: Material(
-                          child: Container(
-                            height: 180.0,
-                            width: width * 0.9,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    offset: Offset(-10.0, 10.0),
-                                    blurRadius: 20.0,
-                                    spreadRadius: 4.0),
-                              ],
-                            ),
-                          ),
-                        )),
-                    Positioned(
-                        top: 0,
-                        left: 30,
-                        child: Card(
-                            elevation: 10.0,
-                            shadowColor: Colors.grey.withOpacity(0.5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Container(
-                                height: 200,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage("assets/comm.jpg"),
-                                    ))))),
-                    Positioned(
-                      top: 60,
-                      left: 200,
-                      child: Container(
-                        color: Colors.white,
-                        height: 150,
-                        width: 140,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Commercial",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: mainColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Divider(
-                              color: Colors.black,
-                              thickness: 0,
-                              height: 20,
-                            ),
-                            Text(
-                              "Call us for amazing commercial plots and buildings.",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

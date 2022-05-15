@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:homedesignapp/List/Inventory_List.dart';
+import 'package:homedesignapp/Screens/Detail_Selected.dart';
 import 'package:homedesignapp/Screens/Milestone.dart';
 import 'package:homedesignapp/Services/Data.dart';
 import 'package:homedesignapp/global.dart';
@@ -15,7 +17,12 @@ class Inventoryy extends StatefulWidget {
 
 class _InventoryyState extends State<Inventoryy> {
   @override
+  bool value = false;
+  String ChangeValue;
   Widget build(BuildContext context) {
+    setState(() {
+      ChangeValue;
+    });
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -90,7 +97,7 @@ class _InventoryyState extends State<Inventoryy> {
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
-                            height: 200,
+                            height: 160,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
@@ -108,118 +115,104 @@ class _InventoryyState extends State<Inventoryy> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(InventoryList[index].Material ,
+                                  Text(InventoryList[index].Material,
                                       style: TextSize_SqYard),
                                   Row(
                                     children: [
-                                      Text(
-                                        'Quantity',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      Text('Quality'),
                                       Spacer(),
-                                      // Text(
-                                      //   'Quantity',
-                                      //   style: TextStyle(
-                                      //       fontSize: 16,
-                                      //       fontWeight: FontWeight.bold),
-                                      // ),
-                                      // Spacer(),
-                                      Text(
-                                        'Price',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      Text('Price')
                                     ],
                                   ),
-                                  // Divider(),
-                                  // Row(
-                                  //   children: [
-                                  //     DropdownButton<String>(
-                                  //       items: <String>['A', 'B', 'C']
-                                  //           .map((String value) {
-                                  //         return DropdownMenuItem<String>(
-                                  //           value: value,
-                                  //           child: Text(
-                                  //             value,
-                                  //             style: TextStyle(
-                                  //                 fontSize: 14,
-                                  //                 fontWeight: FontWeight.bold),
-                                  //           ),
-                                  //         );
-                                  //       }).toList(),
-                                  //       onChanged: (_) {},
-                                  //     ),
-                                  //     //   Text('Store'),
-                                  //
-                                  //     Spacer(),
-                                  //     Container(
-                                  //       padding: EdgeInsets.all(3),
-                                  //       decoration: BoxDecoration(
-                                  //           borderRadius:
-                                  //               BorderRadius.circular(5),
-                                  //           color:
-                                  //               Theme.of(context).accentColor),
-                                  //       child: Row(
-                                  //         children: [
-                                  //           InkWell(
-                                  //               onTap: () {
-                                  //                 setState(() {
-                                  //                   InventoryList[index]
-                                  //                       .Count--;
-                                  //                   //  _Count--;
-                                  //                 });
-                                  //               },
-                                  //               child: Icon(
-                                  //                 Icons.remove,
-                                  //                 color: Colors.white,
-                                  //                 size: 16,
-                                  //               )),
-                                  //           Container(
-                                  //             margin: EdgeInsets.symmetric(
-                                  //                 horizontal: 3),
-                                  //             padding: EdgeInsets.symmetric(
-                                  //                 horizontal: 3, vertical: 2),
-                                  //             decoration: BoxDecoration(
-                                  //                 borderRadius:
-                                  //                     BorderRadius.circular(3),
-                                  //                 color: Colors.white),
-                                  //             child: Text(
-                                  //               InventoryList[index]
-                                  //                   .Count
-                                  //                   .toString(),
-                                  //               style: TextStyle(
-                                  //                   color: Colors.black,
-                                  //                   fontSize: 16),
-                                  //             ),
-                                  //           ),
-                                  //           InkWell(
-                                  //               onTap: () {
-                                  //                 setState(() {
-                                  //                   InventoryList[index]
-                                  //                       .Count++;
-                                  //                   //  _Count++;
-                                  //                 });
-                                  //               },
-                                  //               child: Icon(
-                                  //                 Icons.add,
-                                  //                 color: Colors.white,
-                                  //                 size: 16,
-                                  //               )),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //     Spacer(),
-                                  //     Text(
-                                  //       InventoryList[index].Price ,
-                                  //       style: TextStyle(
-                                  //           fontSize: 18,
-                                  //           fontWeight: FontWeight.bold),
-                                  //     ),
-                                  //   ],
-                                  // ),
+                                  Row(
+                                    //  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text(
+                                        'A',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Checkbox(
+                                        value: InventoryList[index].A,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            InventoryList[index].A = newValue;
+                                            InventoryList[index].B = false;
+                                            InventoryList[index].C = false;
+                                            ChangeValue =
+                                                InventoryList[index].PriceA;
+                                            InventoryList[index].Changevalue1 =
+                                                ChangeValue;
+                                            InventoryList[index].Qualitytype =
+                                                "A";
+                                            ChangeValue = "";
+                                          });
+                                        },
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        'B',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Checkbox(
+                                        value: InventoryList[index].B,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            InventoryList[index].B = newValue;
+                                            InventoryList[index].A = false;
+                                            InventoryList[index].C = false;
+                                            ChangeValue =
+                                                InventoryList[index].PriceB;
+                                            InventoryList[index].Changevalue1 =
+                                                ChangeValue;
+                                            ChangeValue = "";
+                                            InventoryList[index].Qualitytype =
+                                                "B";
+                                          });
+                                        },
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        'C',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Checkbox(
+                                        value: InventoryList[index].C,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            InventoryList[index].C = newValue;
+                                            InventoryList[index].B = false;
+                                            InventoryList[index].A = false;
+                                            ChangeValue =
+                                                InventoryList[index].PriceC;
+                                            InventoryList[index].Changevalue1 =
+                                                ChangeValue;
+                                            ChangeValue = "";
+                                            InventoryList[index].Qualitytype =
+                                                "C";
+                                          });
+                                        },
+                                      ),
+                                      Spacer(),
+                                      Text(InventoryList[index].Changevalue1 ??
+                                          '0'),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(InventoryList[index].PriceA ?? ""),
+                                      Spacer(),
+                                      Text(InventoryList[index].PriceB ?? ""),
+                                      Spacer(),
+                                      Text(InventoryList[index].PriceC ?? ""),
+                                      Spacer(),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
@@ -231,7 +224,8 @@ class _InventoryyState extends State<Inventoryy> {
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => Milestone()));
+                          builder: (BuildContext context) =>
+                              Detail_Selected()));
                     },
                     child: Container(
                       height: 50,

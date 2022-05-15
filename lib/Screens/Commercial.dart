@@ -26,7 +26,7 @@ class _CommercialPageState extends State<CommercialPage> {
           centerTitle: true,
           backgroundColor: mainColor,
           title: Text(
-            'Area(Residential)',
+            'Area(Commercial)',
             style: TextStyle(
                 color: Colors.black87,
                 fontSize: 25,

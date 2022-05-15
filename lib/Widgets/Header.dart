@@ -16,18 +16,18 @@ class Header extends StatelessWidget {
           Center(
             child: Text(
               text ,
-              style: TextStyle(color: Colors.black, fontSize: 40,fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black, fontSize: 30,fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
             height: 10,
           ),
-          Center(
-            child: Text(
-              "Welcome To Home Design App",
-              style: TextStyle(color: Colors.black, fontSize: 18, fontStyle: FontStyle.normal),
-            ),
-          )
+          // Center(
+          //   child: Text(
+          //     "Welcome To Home Design App",
+          //     style: TextStyle(color: Colors.black, fontSize: 18, fontStyle: FontStyle.normal),
+          //   ),
+          // )
         ],
       ),
     );

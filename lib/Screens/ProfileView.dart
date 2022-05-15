@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -67,7 +68,10 @@ class MapScreenState extends State<ProfilePage>
             children: <Widget>[
               new Container(
                 height: 250.0,
-                color: Colors.grey,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.grey,
+                ),
                 child: new Column(
                   children: <Widget>[
                     Padding(
@@ -81,13 +85,15 @@ class MapScreenState extends State<ProfilePage>
                               size: 22.0,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 25.0),
-                              child: new Text('PROFILE',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0,
-                                      fontFamily: 'sans-serif-light',
-                                      color: Colors.black)),
+                              padding: EdgeInsets.only(left: 20.0),
+                              child: Center(
+                                child: new Text('PROFILE',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0,
+                                        fontFamily: 'sans-serif-light',
+                                        color: Colors.black)),
+                              ),
                             )
                           ],
                         )),
@@ -151,14 +157,17 @@ class MapScreenState extends State<ProfilePage>
               ),
               Center(
                 child: InkWell(
-                  onTap: (){
-                    _showPicker(context);
-                  },
-                    child: Text("Edit Photo", style: TextStyle(color: Colors.blue, fontWeight:FontWeight.bold,fontSize: 18),)
+                  // onTap: (){
+                  //   _showPicker(context);
+                  // },
+                    child: Text("Edit Photo", style: TextStyle(color: Colors.blue, fontWeight:FontWeight.bold,fontSize: 20),)
                 ),
               ),
               new Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
                 color: Colors.grey,
+                ),
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 24.0),
                   child: new Column(
@@ -302,7 +311,7 @@ class MapScreenState extends State<ProfilePage>
                   ),
                 ),
               )
-            ],
+              ],
           ),
         ],
       ),
@@ -448,3 +457,4 @@ class MapScreenState extends State<ProfilePage>
     });
   }
 }
+

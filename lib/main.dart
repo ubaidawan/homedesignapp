@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:homedesignapp/List/Inventory_List.dart';
-import 'package:homedesignapp/Screens/HomeNav.dart';
-import 'package:homedesignapp/Screens/HomeScreen.dart';
-import 'package:homedesignapp/Screens/Inventory.dart';
-import 'package:homedesignapp/Screens/Milestone.dart';
-import 'package:homedesignapp/Screens/Splash.dart';
+import 'package:homedesignapp/180yardnew.dart';
+import 'package:homedesignapp/240yardnew.dart';
+import 'package:homedesignapp/300yardnew.dart';
+import 'package:homedesignapp/Screens/120sqyard.dart';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:homedesignapp/Screens/Detail_Selected.dart';
+import 'package:homedesignapp/Screens/Feedback.dart';
+import 'package:homedesignapp/Screens/Splash.dart';
+
+import '120yardnew.dart';
+import 'Screens/Inventory.dart';
+import 'Screens/SelectSqyard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,14 +27,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(),
-      // home: CommercialPage(),
-      // home: Residential(),
+
         home: Splashscreen(),
-      //home: HomeScreen(),
-      //home: BottomNav(),
-      //   home :Inventoryy(),
-      // home: Milestone(),
-      // home: Detail_Selected(),
+      // home : ReachUs(),
+      //   home :SelectSqyard(),
+      //  home: twenty(),
+      // home: Oneeighty(),
+      // home : Twoforty(),
+      // home : Threehundred(),
+      // home :Inventoryy(),
+     // home: Detail_Selected(),
     );
   }
 }

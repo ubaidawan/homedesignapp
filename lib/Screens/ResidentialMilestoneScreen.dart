@@ -119,14 +119,14 @@ class _ResidentialMilestoneScreenState extends State<ResidentialMilestoneScreen>
                               'SQ Yard :${residentialrequestmodellist[index].sqyard}'),
                         ),
                       ),
-                      Padding(
+                     /* Padding(
                         padding: const EdgeInsets.only(
                             left: 20.0, right: 20.0, bottom: 8.0),
                         child: Center(
                           child: Text(
                               'Request Token :${residentialrequestmodellist[index].requestId}'),
                         ),
-                      ),
+                      ),*/
                       //     style: TextSize_SqYard),
                       Row(
                         children: [
@@ -214,7 +214,7 @@ class _ResidentialMilestoneScreenState extends State<ResidentialMilestoneScreen>
                           Text(residentialrequestmodellist[index].stone),
                         ],
                       ),
-                      Row(
+                     /* Row(
                         children: [
                           Text('Timber'),
                           Spacer(),
@@ -230,10 +230,10 @@ class _ResidentialMilestoneScreenState extends State<ResidentialMilestoneScreen>
                       ),
 
                       Image.network(
-                        residentialrequestmodellist[index].image,
-                        height: 200.0,
+                        residentialrequestmodellist[index].image,*/
+                 /*       height: 200.0,
                         width: 200.0,
-                      ),
+                      ),*/
 
                       Spacer(),
                       Row(

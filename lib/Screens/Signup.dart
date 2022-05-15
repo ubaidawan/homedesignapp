@@ -17,8 +17,7 @@ class _SignupState extends State<Signup> {
   bool _obscureText = true;
   bool _obscureText1 = true;
    String email, password, confirmpassword, contact, Username,Address;
-  DatabaseReference reference =
-      FirebaseDatabase.instance.reference().child("UserClient");
+  DatabaseReference reference = FirebaseDatabase.instance.reference().child("UserClient");
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
    TextEditingController _email, _password, _confirmpassword, _contact, _Username, _Address;
@@ -67,7 +66,6 @@ class _SignupState extends State<Signup> {
                               ),
                               hintText: "Name",
                               hintStyle: TextStyle(color: Colors.black),
-                              // border: InputBorder.none
                             ),
                           ),
                         ),
@@ -85,7 +83,6 @@ class _SignupState extends State<Signup> {
                               ),
                               hintText: "Email",
                               hintStyle: TextStyle(color: Colors.black),
-                              // border: InputBorder.none
                             ),
                           ),
                         ),
@@ -169,9 +166,6 @@ class _SignupState extends State<Signup> {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                             controller: _Address,
                             decoration: InputDecoration(
-                              // focusedBorder: OutlineInputBorder(
-                              //   borderSide: BorderSide(color: Colors.black,width: 2),
-                              // ),
                               hintText: "Address",
                               hintStyle: TextStyle(color: Colors.black),
                               // border: InputBorder.none
@@ -226,7 +220,7 @@ class _SignupState extends State<Signup> {
      email = _email.text;
      password = _password.text;
      contact = _contact.text;
-   //  passportnumber = _passportnumber.text;
+     Address = _Address.text;
 
      try {
        UserCredential userCredential =
@@ -255,7 +249,7 @@ class _SignupState extends State<Signup> {
        "email": email,
        "password": password,
        "contact": contact,
-     //  "passportnumber": passportnumber,
+       "address": Address,
      }).then((value) => _showtimer());
    }
 
@@ -263,7 +257,6 @@ class _SignupState extends State<Signup> {
      Timer(
        Duration(seconds: 3),
            () {
-         // _btnController.success();
        },
      );
    }
